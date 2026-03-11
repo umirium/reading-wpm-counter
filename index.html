@@ -10,12 +10,10 @@
     :root {
       --bg: #0b0f14;
       --card: #121821;
-      --card-2: #18202b;
       --text: #e5edf6;
       --muted: #9aa7b5;
       --line: #2b3644;
       --accent: #7cc4ff;
-      --accent-2: #1d2a36;
       --ok: #6ee7b7;
       --warn: #fbbf24;
       --danger: #fca5a5;
@@ -67,45 +65,67 @@
       font-size: 26px;
       letter-spacing: .01em;
     }
-    p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.02);
-      color: var(--muted);
-      font-size: 12px;
-    }
     label {
       display: block;
       font-weight: 700;
       margin-bottom: 8px;
       letter-spacing: .01em;
     }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    button {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #17202a, #121922);
+      color: var(--text);
+      border-radius: 16px;
+      padding: 14px 12px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      min-height: 52px;
+    }
+    button.primary {
+      background: linear-gradient(180deg, #89d0ff, #61b8ff);
+      color: #05111d;
+      border-color: #8fd2ff;
+    }
+    button.stop {
+      background: linear-gradient(180deg, #23303c, #17212b);
+    }
+    button.save {
+      background: linear-gradient(180deg, #203344, #182734);
+    }
+    button:disabled {
+      opacity: .45;
+      cursor: default;
+    }
     textarea {
       width: 100%;
-      min-height: 450px;
+      min-height: 60vh;
       border: 1px solid var(--line);
       border-radius: 16px;
-      padding: 14px;
-      font-size: 18px;
-      line-height: 1.6;
+      padding: 16px;
+      font-size: 20px;
+      line-height: 1.7;
       resize: vertical;
       background: #0f141b;
       color: var(--text);
       outline: none;
+      -webkit-text-size-adjust: 100%;
     }
     textarea:focus {
       border-color: #4b6a87;
       box-shadow: 0 0 0 3px rgba(124,196,255,.12);
+    }
+    .small {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
     }
     .status {
       display: inline-flex;
@@ -162,44 +182,95 @@
       color: var(--muted);
       margin-top: 8px;
     }
-    .buttons {
+    .saved-list {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 12px;
+      gap: 12px;
     }
-    button {
-      appearance: none;
+    .saved-item {
       border: 1px solid var(--line);
-      background: linear-gradient(180deg, #17202a, #121922);
+      border-radius: 18px;
+      padding: 14px;
+      background: linear-gradient(180deg, #131b24, #10161e);
+    }
+    .saved-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .saved-preview {
+      font-size: 15px;
+      line-height: 1.5;
       color: var(--text);
-      border-radius: 16px;
-      padding: 14px 12px;
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
+      word-break: break-word;
+      flex: 1;
     }
-    button.primary {
-      background: linear-gradient(180deg, #89d0ff, #61b8ff);
-      color: #05111d;
-      border-color: #8fd2ff;
-    }
-    button.stop {
-      background: linear-gradient(180deg, #23303c, #17212b);
-    }
-    button:disabled {
-      opacity: .45;
-      cursor: default;
-    }
-    .small {
-      font-size: 13px;
+    .saved-date {
+      font-size: 12px;
       color: var(--muted);
+      white-space: nowrap;
+    }
+    .saved-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
       margin-top: 10px;
     }
+    .meta-box {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px;
+      background: rgba(255,255,255,.02);
+    }
+    .meta-box .mk {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .meta-box .mv {
+      font-size: 18px;
+      font-weight: 800;
+    }
+    .saved-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .saved-actions button {
+      padding: 10px 14px;
+      font-size: 14px;
+      border-radius: 12px;
+      min-height: 44px;
+    }
+    .danger {
+      color: var(--danger);
+      border-color: rgba(252,165,165,.4);
+    }
+    .empty {
+      color: var(--muted);
+      font-size: 14px;
+    }
     @media (max-width: 640px) {
+      .wrap {
+        padding: 12px;
+        padding-bottom: calc(20px + env(safe-area-inset-bottom));
+      }
       .row { grid-template-columns: 1fr; }
-      .buttons { grid-template-columns: 1fr; }
+      .buttons { grid-template-columns: 1fr 1fr; }
+      .saved-meta { grid-template-columns: 1fr 1fr; }
       h1 { font-size: 24px; }
+      textarea {
+        min-height: 70vh;
+        font-size: 21px;
+        line-height: 1.75;
+        padding: 18px 16px;
+      }
+      button {
+        font-size: 17px;
+        min-height: 56px;
+      }
     }
   </style>
 </head>
@@ -216,14 +287,15 @@
 
     <div class="card">
       <label for="text">英文</label>
-      <textarea id="text" placeholder="ここに英文を貼り付けてください"></textarea>
-      <div class="small">単語数は空白区切りで自動カウントします。テキストは自動保存されます。</div>
-      <div id="status" class="status"><span id="statusDot" class="dot"></span><span id="statusText">待機中</span></div>
       <div class="buttons">
         <button id="startBtn" class="primary">開始</button>
         <button id="stopBtn" class="stop" disabled>終了</button>
         <button id="resetBtn">リセット</button>
+        <button id="saveBtn" class="save">保存</button>
       </div>
+      <textarea id="text" placeholder="ここに英文を貼り付けてください"></textarea>
+      <div class="small">単語数は空白区切りで自動カウントします。開始時に未保存の英文は自動保存されます。</div>
+      <div id="status" class="status"><span id="statusDot" class="dot"></span><span id="statusText">待機中</span></div>
     </div>
 
     <div class="card">
@@ -250,143 +322,15 @@
         </div>
       </div>
     </div>
+
+    <div class="card">
+      <label>保存済み英文</label>
+      <div id="savedList" class="saved-list"></div>
+      <div id="emptyState" class="empty">まだ保存された英文はありません。</div>
+    </div>
   </div>
 
-  <script>
-    const STORAGE_TEXT_KEY = 'wpm_pwa_text';
-    const STORAGE_LAST_KEY = 'wpm_pwa_last';
-
-    const textEl = document.getElementById('text');
-    const wordsEl = document.getElementById('words');
-    const timeEl = document.getElementById('time');
-    const wpmEl = document.getElementById('wpm');
-    const lastEl = document.getElementById('last');
-    const startBtn = document.getElementById('startBtn');
-    const stopBtn = document.getElementById('stopBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const statusText = document.getElementById('statusText');
-    const statusDot = document.getElementById('statusDot');
-
-    let startTime = null;
-    let timerId = null;
-    let running = false;
-    let elapsedMs = 0;
-
-    function countWords(text) {
-      return text.trim().split(/\s+/).filter(Boolean).length;
-    }
-
-    function formatElapsed(ms) {
-      const totalSec = Math.floor(ms / 1000);
-      const min = String(Math.floor(totalSec / 60)).padStart(2, '0');
-      const sec = String(totalSec % 60).padStart(2, '0');
-      return `${min}:${sec}`;
-    }
-
-    function updateWordCount() {
-      const count = countWords(textEl.value);
-      wordsEl.textContent = count;
-      localStorage.setItem(STORAGE_TEXT_KEY, textEl.value);
-      return count;
-    }
-
-    function setStatus(mode) {
-      if (mode === 'running') {
-        statusText.textContent = '計測中';
-        statusDot.classList.add('running');
-      } else if (mode === 'done') {
-        statusText.textContent = '計測完了';
-        statusDot.classList.remove('running');
-      } else {
-        statusText.textContent = '待機中';
-        statusDot.classList.remove('running');
-      }
-    }
-
-    function updateDisplayFromElapsed(ms) {
-      elapsedMs = ms;
-      timeEl.textContent = formatElapsed(ms);
-      const words = countWords(textEl.value);
-      const minutes = ms / 60000;
-      const wpm = minutes > 0 ? words / minutes : 0;
-      wpmEl.textContent = wpm.toFixed(1);
-    }
-
-    function startTimer() {
-      timerId = setInterval(() => {
-        if (!running || startTime === null) return;
-        updateDisplayFromElapsed(Date.now() - startTime);
-      }, 200);
-    }
-
-    function stopTimer() {
-      clearInterval(timerId);
-      timerId = null;
-    }
-
-    textEl.addEventListener('input', updateWordCount);
-
-    startBtn.addEventListener('click', () => {
-      const words = updateWordCount();
-      if (words === 0) {
-        alert('先に英文を貼り付けてください。');
-        return;
-      }
-      if (running) return;
-
-      startTime = Date.now();
-      running = true;
-      startBtn.disabled = true;
-      stopBtn.disabled = false;
-      setStatus('running');
-      updateDisplayFromElapsed(0);
-      startTimer();
-    });
-
-    stopBtn.addEventListener('click', () => {
-      if (!running || startTime === null) {
-        alert('先に開始ボタンを押してください。');
-        return;
-      }
-
-      running = false;
-      stopTimer();
-      updateDisplayFromElapsed(Date.now() - startTime);
-
-      const lastValue = `${wpmEl.textContent} WPM`;
-      lastEl.textContent = lastValue;
-      localStorage.setItem(STORAGE_LAST_KEY, lastValue);
-
-      startBtn.disabled = false;
-      stopBtn.disabled = true;
-      setStatus('done');
-    });
-
-    resetBtn.addEventListener('click', () => {
-      running = false;
-      startTime = null;
-      stopTimer();
-      updateDisplayFromElapsed(0);
-      startBtn.disabled = false;
-      stopBtn.disabled = true;
-      setStatus('idle');
-    });
-
-    function loadSaved() {
-      const savedText = localStorage.getItem(STORAGE_TEXT_KEY) || '';
-      const savedLast = localStorage.getItem(STORAGE_LAST_KEY) || '-';
-      textEl.value = savedText;
-      lastEl.textContent = savedLast;
-      updateWordCount();
-      updateDisplayFromElapsed(0);
-      setStatus('idle');
-    }
-
-    loadSaved();
-
-    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
-    }
-  </script>
+  <script src="storage.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

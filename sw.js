@@ -1,7 +1,9 @@
-const CACHE_NAME = 'wpm-counter-v2';
+const CACHE_NAME = 'wpm-counter-v4';
 const ASSETS = [
   './',
   './index.html',
+  './app.js',
+  './storage.js',
   './manifest.json',
   './icon-192.png',
   './icon-512.png'
